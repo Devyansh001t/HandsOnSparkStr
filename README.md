@@ -13,10 +13,7 @@
 ### Approach & Methodology
 * **Offline Model Training:** The pipeline reads historical baseline ride metrics from `training-dataset.csv`. The independent feature (`distance_km`) and the targeted label (`fare_amount`) columns are cleanly cast to double-precision numbers. A `VectorAssembler` transforms the raw `distance_km` column into a dense feature vector layer, which is subsequently passed to fit a `LinearRegression` model instance. Once fitted, the pipeline state is written directly to disk at `models/fare_model`.
 * **Real-Time Inference:** The streaming program sets up an input stream bound via a network socket connection on port 9999. The JSON payloads are unmarshalled against a predefined structured schema using `from_json`.
-* **Anomaly Detection:** The pre-trained `LinearRegressionModel` is loaded from disk and maps predictions over the live streaming vector space. An inline arithmetic transformation evaluates the absolute mathematical difference between the actual trip cost and the model's generated estimation:
-  $$\text{deviation} = |\text{fare\_amount} - \text{prediction}|$$
-  Any transaction displaying significant statistical variance is isolated in real-time as a potential pricing anomaly and flushed to the console log using `append` mode.
-
+* **Anomaly Detection:** The pre-trained `LinearRegressionModel` is loaded from disk and maps predictions over the live streaming vector space. An inline arithmetic transformation evaluates the absolute mathematical difference between the actual trip cost and the model's generated estimation
 ### Verified Output (Batch 95)
 <img width="842" height="166" alt="Task4sample95" src="https://github.com/user-attachments/assets/a236eb5b-24bf-4702-a046-ddf2b8b6ff89" />
 
