@@ -1,0 +1,21 @@
+# Spark / Hadoop local outputs & logs
+metastore_db/
+derby.log
+spark-warehouse/
+*.checkpoint
+checkpoint/
+
+# Large Data formats
+*.parquet
+*.csv
+*.json
+*.avro
+
+# Build & Dependency folders
+target/
+bin/
+.venv/
+venv/
+__pycache__/
+.idea/
+.vscode/
